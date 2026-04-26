@@ -1,4 +1,4 @@
-package com.example.compoundinterest
+package com.example.midterm_bonus
 
 import android.animation.ValueAnimator
 import android.os.Bundle
@@ -303,21 +303,21 @@ class MainActivity : AppCompatActivity() {
         when (mode) {
             "Total P+I (A)" -> {
                 tvResultLabel.text = "Total Amount (A)"
-                tvResultValue.text = "$ ${fmt(result)}"
-                tvPrincipal.text = "Principal (P): $ ${fmt(principal)}"
-                tvInterest.text = "Interest (I): $ ${fmt(result - principal)}"
+                tvResultValue.text = "₱ ${fmt(result)}"
+                tvPrincipal.text = "Principal (P): ₱ ${fmt(principal)}"
+                tvInterest.text = "Interest (I): ₱ ${fmt(result - principal)}"
             }
             "Principal (P) using A", "Principal (P) using I" -> {
                 tvResultLabel.text = "Principal (P)"
-                tvResultValue.text = "$ ${fmt(result)}"
-                tvPrincipal.text = "Total (A): $ ${fmt(total)}"
-                tvInterest.text = "Interest (I): $ ${fmt(total - result)}"
+                tvResultValue.text = "₱ ${fmt(result)}"
+                tvPrincipal.text = "Total (A): ₱ ${fmt(total)}"
+                tvInterest.text = "Interest (I): ₱ ${fmt(total - result)}"
             }
             "Rate (R)" -> {
                 tvResultLabel.text = "Annual Rate (R)"
                 tvResultValue.text = "${"%.4f".format(result * 100)} %"
-                tvPrincipal.text = "Principal (P): $ ${fmt(principal)}"
-                tvInterest.text = "Total (A): $ ${fmt(total)}"
+                tvPrincipal.text = "Principal (P): ₱ ${fmt(principal)}"
+                tvInterest.text = "Total (A): ₱ ${fmt(total)}"
             }
             "Time (t)" -> {
                 tvResultLabel.text = "Time (t)"
@@ -340,7 +340,7 @@ class MainActivity : AppCompatActivity() {
         animator.interpolator = AccelerateDecelerateInterpolator()
         animator.addUpdateListener {
             val v = it.animatedValue as Float
-            tv.text = "$ ${"%.2f".format(v.toDouble())}"
+            tv.text = "₱ ${"%.2f".format(v.toDouble())}"
         }
         animator.start()
     }
@@ -392,7 +392,7 @@ class MainActivity : AppCompatActivity() {
             axisLeft.textColor = ContextCompat.getColor(this@MainActivity, R.color.text_secondary)
             axisLeft.valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float) =
-                    if (value >= 1000) "$${(value / 1000).toInt()}k" else "$${"%.0f".format(value)}"
+                    if (value >= 1000) "₱${(value / 1000).toInt()}k" else "$${"%.0f".format(value)}"
             }
             axisRight.isEnabled = false
             legend.textColor = ContextCompat.getColor(this@MainActivity, R.color.text_primary)
@@ -410,7 +410,7 @@ class MainActivity : AppCompatActivity() {
 
         val insight = buildString {
             appendLine("📊 Summary")
-            appendLine("• Total interest earned: $${"%.2f".format(interest)}")
+            appendLine("• Total interest earned: ₱${"%.2f".format(interest)}")
             appendLine("• That's ${"%.1f".format(pct)}% return on your principal")
             appendLine()
             appendLine("⚡ Compounding Effect")
@@ -421,9 +421,9 @@ class MainActivity : AppCompatActivity() {
             val simpleA = p * (1 + r * t)
             val extra = a - simpleA
             if (extra > 0) {
-                appendLine("• vs Simple Interest: $${
+                appendLine("• vs Simple Interest: ₱${
                     "%.2f".format(simpleA)
-                } — compounding earned you $${
+                } — compounding earned you ₱${
                     "%.2f".format(extra)
                 } more!")
             }
@@ -434,8 +434,8 @@ class MainActivity : AppCompatActivity() {
         val whatIf = buildString {
             appendLine("💡 What If?")
             appendLine("If you waited 5 more years (${t + 5} yrs total):")
-            appendLine("• You'd have: $${"%.2f".format(laterA)}")
-            appendLine("• Extra gain: $${"%.2f".format(laterA - a)}")
+            appendLine("• You'd have: ₱${"%.2f".format(laterA)}")
+            appendLine("• Extra gain: ₱${"%.2f".format(laterA - a)}")
             appendLine()
             val doubleTime = if (continuous) ln(2.0) / r else ln(2.0) / (n * ln(1 + r / n))
             appendLine("⏱ Rule of 72: At ${
